@@ -1,3 +1,5 @@
+import TodoApp from "@/components/TodoApp";
+
 export default function Home() {
   return (
     <main className="mx-auto max-w-xl px-4 py-16">
@@ -5,6 +7,7 @@ export default function Home() {
       <p className="mt-2 text-sm opacity-70">
         Keep track of what you need to get done.
       </p>
+      <TodoApp />
     </main>
   );
 }
