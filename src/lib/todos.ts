@@ -21,3 +21,13 @@ export function toggleTodo(todos: Todo[], id: string): Todo[] {
 export function deleteTodo(todos: Todo[], id: string): Todo[] {
   return todos.filter((todo) => todo.id !== id);
 }
+
+export type Filter = "all" | "active" | "completed";
+
+export const FILTERS: Filter[] = ["all", "active", "completed"];
+
+export function filterTodos(todos: Todo[], filter: Filter): Todo[] {
+  if (filter === "active") return todos.filter((todo) => !todo.completed);
+  if (filter === "completed") return todos.filter((todo) => todo.completed);
+  return todos;
+}
