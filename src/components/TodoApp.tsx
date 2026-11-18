@@ -62,7 +62,7 @@ export default function TodoApp() {
         <FilterBar value={filter} onChange={setFilter} />
         <SortSelect value={sort} onChange={setSort} />
       </div>
-      <TodoList todos={visible} onToggle={toggle} onEdit={edit} onDelete={remove} />
+      <TodoList todos={visible} emptyMessage="No todos yet." onToggle={toggle} onEdit={edit} onDelete={remove} />
       {doneCount > 0 && (
         <button
           type="button"
