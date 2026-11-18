@@ -1,3 +1,4 @@
+import PriorityBadge from "@/components/PriorityBadge";
 import type { Todo } from "@/lib/todos";
 
 type Props = {
@@ -12,8 +13,9 @@ export default function TodoList({ todos }: Props) {
   return (
     <ul className="divide-y divide-gray-200 rounded-md border border-gray-200">
       {todos.map((todo) => (
-        <li key={todo.id} className="px-3 py-2">
-          {todo.text}
+        <li key={todo.id} className="flex items-center justify-between px-3 py-2">
+          <span>{todo.text}</span>
+          <PriorityBadge priority={todo.priority} />
         </li>
       ))}
     </ul>
