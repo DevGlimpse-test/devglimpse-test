@@ -33,8 +33,7 @@ export function toLocalISODate(date: Date): string {
 
 export function isOverdue(todo: Todo, today: Date = new Date()): boolean {
   if (!todo.dueDate || todo.completed) return false;
-  const todayIso = today.toISOString().slice(0, 10);
-  return todo.dueDate < todayIso;
+  return todo.dueDate < toLocalISODate(today);
 }
 
 export function toggleTodo(todos: Todo[], id: string): Todo[] {
