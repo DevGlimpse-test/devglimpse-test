@@ -1,6 +1,6 @@
 import EditableText from "@/components/EditableText";
 import PriorityBadge from "@/components/PriorityBadge";
-import { isOverdue, type Todo } from "@/lib/todos";
+import { isDueSoon, isOverdue, type Todo } from "@/lib/todos";
 
 type Props = {
   todo: Todo;
@@ -11,6 +11,7 @@ type Props = {
 
 export default function TodoItem({ todo, onToggle, onEdit, onDelete }: Props) {
   const overdue = isOverdue(todo);
+  const soon = isDueSoon(todo);
 
   return (
     <li className="flex items-center gap-2 px-3 py-2">
@@ -26,8 +27,16 @@ export default function TodoItem({ todo, onToggle, onEdit, onDelete }: Props) {
         className={`flex-1 ${todo.completed ? "line-through opacity-50" : ""}`}
       />
       {todo.dueDate && (
-        <span className={`text-xs ${overdue ? "font-semibold text-red-600" : "opacity-60"}`}>
-          {overdue ? "Overdue · " : "Due "}
+        <span
+          className={`text-xs ${
+            overdue
+              ? "font-semibold text-red-600"
+              : soon
+                ? "font-medium text-amber-600"
+                : "opacity-60"
+          }`}
+        >
+          {overdue ? "Overdue · " : soon ? "Due soon · " : "Due "}
           {todo.dueDate}
         </span>
       )}
