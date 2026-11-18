@@ -1,0 +1,32 @@
+import { describe, expect, it } from "vitest";
+import { createTodo, getStats } from "@/lib/todos";
+
+describe("getStats", () => {
+  const today = new Date("2026-06-15T12:00:00Z");
+
+  it("handles an empty list", () => {
+    expect(getStats([], today)).toEqual({
+      total: 0,
+      completed: 0,
+      active: 0,
+      overdue: 0,
+      percentDone: 0,
+    });
+  });
+
+  it("counts completed, active, overdue and percent", () => {
+    const todos = [
+      { ...createTodo("a"), completed: true },
+      createTodo("b", "low", "2026-06-01"),
+      createTodo("c"),
+      createTodo("d"),
+    ];
+    expect(getStats(todos, today)).toEqual({
+      total: 4,
+      completed: 1,
+      active: 3,
+      overdue: 1,
+      percentDone: 25,
+    });
+  });
+});

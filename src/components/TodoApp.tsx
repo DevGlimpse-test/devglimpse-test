@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { usePersistedTodos } from "@/hooks/usePersistedTodos";
 import SearchBox from "@/components/SearchBox";
+import ProgressSummary from "@/components/ProgressSummary";
 import SortSelect from "@/components/SortSelect";
 import FilterBar from "@/components/FilterBar";
 import AddTodoForm from "@/components/AddTodoForm";
@@ -12,6 +13,7 @@ import {
   createTodo,
   deleteTodo,
   filterTodos,
+  getStats,
   searchTodos,
   sortTodos,
   toggleTodo,
@@ -47,12 +49,14 @@ export default function TodoApp() {
     setTodos((prev) => clearCompleted(prev));
   }
 
-  const doneCount = todos.filter((t) => t.completed).length;
+  const stats = getStats(todos);
+  const doneCount = stats.completed;
   const visible = sortTodos(searchTodos(filterTodos(todos, filter), query), sort);
 
   return (
     <div className="mt-8 space-y-4">
       <AddTodoForm onAdd={addTodo} />
+      <ProgressSummary stats={stats} />
       <SearchBox value={query} onChange={setQuery} />
       <div className="flex flex-wrap items-center justify-between gap-2">
         <FilterBar value={filter} onChange={setFilter} />
