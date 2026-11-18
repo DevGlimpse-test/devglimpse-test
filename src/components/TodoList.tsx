@@ -1,4 +1,4 @@
-import type { Todo } from "@/lib/todos";
+import { isOverdue, type Todo } from "@/lib/todos";
 
 type Props = {
   todos: Todo[];
@@ -12,8 +12,16 @@ export default function TodoList({ todos }: Props) {
   return (
     <ul className="divide-y divide-gray-200 rounded-md border border-gray-200">
       {todos.map((todo) => (
-        <li key={todo.id} className="px-3 py-2">
-          {todo.text}
+        <li key={todo.id} className="flex items-center justify-between px-3 py-2">
+          <span>{todo.text}</span>
+          {todo.dueDate && (
+            <span
+              className={`text-xs ${isOverdue(todo) ? "font-semibold text-red-600" : "opacity-60"}`}
+            >
+              {isOverdue(todo) ? "Overdue · " : "Due "}
+              {todo.dueDate}
+            </span>
+          )}
         </li>
       ))}
     </ul>
