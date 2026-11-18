@@ -30,3 +30,14 @@ describe("getStats", () => {
     });
   });
 });
+
+import { emptyMessage } from "@/lib/todos";
+
+describe("emptyMessage", () => {
+  it("explains each empty state", () => {
+    expect(emptyMessage(0, "all", "")).toMatch(/Add one/);
+    expect(emptyMessage(3, "all", " milk ")).toBe('No todos match "milk".');
+    expect(emptyMessage(3, "active", "")).toMatch(/Nothing left/);
+    expect(emptyMessage(3, "completed", "")).toMatch(/No completed/);
+  });
+});
