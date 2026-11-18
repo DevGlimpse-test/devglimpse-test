@@ -8,7 +8,7 @@ activity for [DevGlimpse](https://devglimpse.com) to measure.
 - Add todos with a priority (low / medium / high) and an optional due date
 - Overdue todos are highlighted
 - Mark done, edit in place (double-click), clear completed
-- Filter (all / active / completed) and search
+- Filter (all / active / completed) and search (press `/` to focus)
 - Persisted in `localStorage`
 
 ## Scripts

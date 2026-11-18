@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useRef, useState } from "react";
+import { useHotkey } from "@/hooks/useHotkey";
 import { usePersistedTodos } from "@/hooks/usePersistedTodos";
 import SearchBox from "@/components/SearchBox";
 import BulkActions from "@/components/BulkActions";
@@ -31,6 +32,9 @@ export default function TodoApp() {
   const [filter, setFilter] = useState<Filter>("all");
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState<SortKey>("added");
+  const searchRef = useRef<HTMLInputElement>(null);
+  const focusSearch = useCallback(() => searchRef.current?.focus(), []);
+  useHotkey("/", focusSearch);
 
   function addTodo(text: string, priority: Priority, dueDate: string | null) {
     setTodos((prev) => [...prev, createTodo(text, priority, dueDate)]);
@@ -64,7 +68,7 @@ export default function TodoApp() {
     <div className="mt-8 space-y-4">
       <AddTodoForm onAdd={addTodo} />
       <ProgressSummary stats={stats} />
-      <SearchBox value={query} onChange={setQuery} />
+      <SearchBox value={query} onChange={setQuery} inputRef={searchRef} />
       <div className="flex flex-wrap items-center justify-between gap-2">
         <FilterBar value={filter} onChange={setFilter} />
         <SortSelect value={sort} onChange={setSort} />
