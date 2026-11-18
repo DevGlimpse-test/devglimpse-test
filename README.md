@@ -1,21 +1,30 @@
-# devglimpse-test
+# DevGlimpse Todo
 
-A small Next.js todo app, built across 5 PRs.
+A small Next.js (TypeScript + Tailwind) todo app used to generate real GitHub
+activity for [DevGlimpse](https://devglimpse.com) to measure.
 
-## Getting started
+## Features
 
-```bash
-npm install
-npm run dev
-```
-
-Then open http://localhost:3000.
+- Add todos with a priority (low / medium / high) and an optional due date
+- Overdue todos are highlighted
+- Mark done, edit in place (double-click), clear completed
+- Filter (all / active / completed) and search
+- Persisted in `localStorage`
 
 ## Scripts
 
 | Command | What it does |
 |---|---|
 | `npm run dev` | Start the dev server |
-| `npm run build` | Build for production |
-| `npm run start` | Run the production build |
-| `npm run lint` | Run ESLint |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | TypeScript, no emit |
+| `npm test` | Vitest unit tests |
+| `npm run build` | Production build |
+
+## Layout
+
+- `src/lib` — pure todo logic and storage helpers (unit tested)
+- `src/components` — UI components
+- `src/hooks` — `usePersistedTodos`
+
+CI runs lint, typecheck, tests and build on every PR.
