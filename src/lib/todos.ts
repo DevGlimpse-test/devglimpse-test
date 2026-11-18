@@ -37,3 +37,9 @@ export function toggleTodo(todos: Todo[], id: string): Todo[] {
 export function clearCompleted(todos: Todo[]): Todo[] {
   return todos.filter((t) => !t.completed);
 }
+
+export function updateTodoText(todos: Todo[], id: string, text: string): Todo[] {
+  const trimmed = text.trim();
+  if (!trimmed) return todos;
+  return todos.map((t) => (t.id === id ? { ...t, text: trimmed } : t));
+}
