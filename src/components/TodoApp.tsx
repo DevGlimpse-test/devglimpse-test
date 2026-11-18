@@ -9,6 +9,7 @@ import TodoList from "@/components/TodoList";
 import {
   clearCompleted,
   createTodo,
+  deleteTodo,
   filterTodos,
   searchTodos,
   toggleTodo,
@@ -34,6 +35,10 @@ export default function TodoApp() {
     setTodos((prev) => updateTodoText(prev, id, text));
   }
 
+  function remove(id: string) {
+    setTodos((prev) => deleteTodo(prev, id));
+  }
+
   function clearDone() {
     setTodos((prev) => clearCompleted(prev));
   }
@@ -46,7 +51,7 @@ export default function TodoApp() {
       <AddTodoForm onAdd={addTodo} />
       <SearchBox value={query} onChange={setQuery} />
       <FilterBar value={filter} onChange={setFilter} />
-      <TodoList todos={visible} onToggle={toggle} onEdit={edit} />
+      <TodoList todos={visible} onToggle={toggle} onEdit={edit} onDelete={remove} />
       {doneCount > 0 && (
         <button
           type="button"
