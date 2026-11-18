@@ -29,3 +29,26 @@ describe("searchTodos", () => {
     expect(searchTodos(todos, "zzz")).toEqual([]);
   });
 });
+
+import { sortTodos } from "@/lib/todos";
+
+describe("sortTodos", () => {
+  const a = createTodo("banana", "low", "2026-03-01");
+  const b = createTodo("apple", "high");
+  const c = createTodo("cherry", "medium", "2026-01-01");
+  const list = [a, b, c];
+
+  it("keeps insertion order for 'added'", () => {
+    expect(sortTodos(list, "added")).toEqual(list);
+  });
+  it("sorts high priority first", () => {
+    expect(sortTodos(list, "priority").map((t) => t.text)).toEqual(["apple", "cherry", "banana"]);
+  });
+  it("sorts by due date with undated last", () => {
+    expect(sortTodos(list, "due").map((t) => t.text)).toEqual(["cherry", "banana", "apple"]);
+  });
+  it("sorts alphabetically without mutating the input", () => {
+    expect(sortTodos(list, "alpha").map((t) => t.text)).toEqual(["apple", "banana", "cherry"]);
+    expect(list.map((t) => t.text)).toEqual(["banana", "apple", "cherry"]);
+  });
+});

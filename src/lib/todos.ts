@@ -63,3 +63,27 @@ export function searchTodos(todos: Todo[], query: string): Todo[] {
 export function deleteTodo(todos: Todo[], id: string): Todo[] {
   return todos.filter((t) => t.id !== id);
 }
+
+export type SortKey = "added" | "priority" | "due" | "alpha";
+
+export const SORT_KEYS: readonly SortKey[] = ["added", "priority", "due", "alpha"];
+
+const PRIORITY_RANK: Record<Priority, number> = { high: 0, medium: 1, low: 2 };
+
+export function sortTodos(todos: Todo[], key: SortKey): Todo[] {
+  if (key === "added") return todos;
+  const copy = [...todos];
+  if (key === "priority") {
+    return copy.sort((a, b) => PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority]);
+  }
+  if (key === "alpha") {
+    return copy.sort((a, b) => a.text.localeCompare(b.text));
+  }
+  // due: earliest first, todos without a date last
+  return copy.sort((a, b) => {
+    if (a.dueDate === b.dueDate) return 0;
+    if (a.dueDate === null) return 1;
+    if (b.dueDate === null) return -1;
+    return a.dueDate < b.dueDate ? -1 : 1;
+  });
+}
