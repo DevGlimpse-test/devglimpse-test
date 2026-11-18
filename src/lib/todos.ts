@@ -36,6 +36,12 @@ export function isOverdue(todo: Todo, today: Date = new Date()): boolean {
   return todo.dueDate < toLocalISODate(today);
 }
 
+export function isDueSoon(todo: Todo, today: Date = new Date(), days = 2): boolean {
+  if (!todo.dueDate || todo.completed || isOverdue(todo, today)) return false;
+  const limit = new Date(today.getFullYear(), today.getMonth(), today.getDate() + days);
+  return todo.dueDate <= toLocalISODate(limit);
+}
+
 export function toggleTodo(todos: Todo[], id: string): Todo[] {
   return todos.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t));
 }
