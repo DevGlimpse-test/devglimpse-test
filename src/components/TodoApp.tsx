@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { usePersistedTodos } from "@/hooks/usePersistedTodos";
+import SearchBox from "@/components/SearchBox";
 import FilterBar from "@/components/FilterBar";
 import AddTodoForm from "@/components/AddTodoForm";
 import TodoList from "@/components/TodoList";
@@ -9,6 +10,7 @@ import {
   clearCompleted,
   createTodo,
   filterTodos,
+  searchTodos,
   toggleTodo,
   updateTodoText,
   type Filter,
@@ -18,6 +20,7 @@ import {
 export default function TodoApp() {
   const [todos, setTodos] = usePersistedTodos();
   const [filter, setFilter] = useState<Filter>("all");
+  const [query, setQuery] = useState("");
 
   function addTodo(text: string, priority: Priority, dueDate: string | null) {
     setTodos((prev) => [...prev, createTodo(text, priority, dueDate)]);
@@ -36,11 +39,12 @@ export default function TodoApp() {
   }
 
   const doneCount = todos.filter((t) => t.completed).length;
-  const visible = filterTodos(todos, filter);
+  const visible = searchTodos(filterTodos(todos, filter), query);
 
   return (
     <div className="mt-8 space-y-4">
       <AddTodoForm onAdd={addTodo} />
+      <SearchBox value={query} onChange={setQuery} />
       <FilterBar value={filter} onChange={setFilter} />
       <TodoList todos={visible} onToggle={toggle} onEdit={edit} />
       {doneCount > 0 && (

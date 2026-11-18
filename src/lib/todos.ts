@@ -53,3 +53,9 @@ export function filterTodos(todos: Todo[], filter: Filter): Todo[] {
   if (filter === "completed") return todos.filter((t) => t.completed);
   return todos;
 }
+
+export function searchTodos(todos: Todo[], query: string): Todo[] {
+  const q = query.trim().toLowerCase();
+  if (!q) return todos;
+  return todos.filter((t) => t.text.toLowerCase().includes(q));
+}
