@@ -43,3 +43,13 @@ export function updateTodoText(todos: Todo[], id: string, text: string): Todo[] 
   if (!trimmed) return todos;
   return todos.map((t) => (t.id === id ? { ...t, text: trimmed } : t));
 }
+
+export type Filter = "all" | "active" | "completed";
+
+export const FILTERS: readonly Filter[] = ["all", "active", "completed"];
+
+export function filterTodos(todos: Todo[], filter: Filter): Todo[] {
+  if (filter === "active") return todos.filter((t) => !t.completed);
+  if (filter === "completed") return todos.filter((t) => t.completed);
+  return todos;
+}
