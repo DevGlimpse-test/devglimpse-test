@@ -3,17 +3,19 @@
 import { useState } from "react";
 
 type Props = {
-  onAdd: (text: string) => void;
+  onAdd: (text: string, dueDate: string | null) => void;
 };
 
 export default function AddTodoForm({ onAdd }: Props) {
   const [text, setText] = useState("");
+  const [dueDate, setDueDate] = useState("");
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!text.trim()) return;
-    onAdd(text);
+    onAdd(text, dueDate || null);
     setText("");
+    setDueDate("");
   }
 
   return (
@@ -25,6 +27,13 @@ export default function AddTodoForm({ onAdd }: Props) {
         placeholder="What needs to be done?"
         aria-label="New todo"
         className="flex-1 rounded-md border border-gray-300 bg-transparent px-3 py-2 outline-none focus:border-blue-500"
+      />
+      <input
+        type="date"
+        value={dueDate}
+        onChange={(e) => setDueDate(e.target.value)}
+        aria-label="Due date"
+        className="rounded-md border border-gray-300 bg-transparent px-2 py-2"
       />
       <button
         type="submit"
