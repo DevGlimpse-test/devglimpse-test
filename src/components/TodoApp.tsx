@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePersistedTodos } from "@/hooks/usePersistedTodos";
 import FilterBar from "@/components/FilterBar";
 import AddTodoForm from "@/components/AddTodoForm";
 import TodoList from "@/components/TodoList";
@@ -12,11 +13,10 @@ import {
   updateTodoText,
   type Filter,
   type Priority,
-  type Todo,
 } from "@/lib/todos";
 
 export default function TodoApp() {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const [todos, setTodos] = usePersistedTodos();
   const [filter, setFilter] = useState<Filter>("all");
 
   function addTodo(text: string, priority: Priority, dueDate: string | null) {
