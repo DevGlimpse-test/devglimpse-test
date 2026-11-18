@@ -1,11 +1,15 @@
+import type { Ref } from "react";
+
 type Props = {
   value: string;
   onChange: (next: string) => void;
+  inputRef?: Ref<HTMLInputElement>;
 };
 
-export default function SearchBox({ value, onChange }: Props) {
+export default function SearchBox({ value, onChange, inputRef }: Props) {
   return (
     <input
+      ref={inputRef}
       type="search"
       value={value}
       onChange={(e) => onChange(e.target.value)}
