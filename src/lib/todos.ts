@@ -87,3 +87,23 @@ export function sortTodos(todos: Todo[], key: SortKey): Todo[] {
     return a.dueDate < b.dueDate ? -1 : 1;
   });
 }
+
+export type Stats = {
+  total: number;
+  completed: number;
+  active: number;
+  overdue: number;
+  percentDone: number;
+};
+
+export function getStats(todos: Todo[], today: Date = new Date()): Stats {
+  const total = todos.length;
+  const completed = todos.filter((t) => t.completed).length;
+  return {
+    total,
+    completed,
+    active: total - completed,
+    overdue: todos.filter((t) => isOverdue(t, today)).length,
+    percentDone: total === 0 ? 0 : Math.round((completed / total) * 100),
+  };
+}
