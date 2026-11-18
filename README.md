@@ -27,4 +27,4 @@ activity for [DevGlimpse](https://devglimpse.com) to measure.
 - `src/components` — UI components
 - `src/hooks` — `usePersistedTodos`
 
-CI runs lint, typecheck, tests and build on every PR.
+Requires Node 22 (see `.nvmrc`).
