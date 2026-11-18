@@ -107,3 +107,11 @@ export function getStats(todos: Todo[], today: Date = new Date()): Stats {
     percentDone: total === 0 ? 0 : Math.round((completed / total) * 100),
   };
 }
+
+export function emptyMessage(total: number, filter: Filter, query: string): string {
+  if (total === 0) return "No todos yet. Add one above.";
+  if (query.trim()) return `No todos match "${query.trim()}".`;
+  if (filter === "active") return "Nothing left to do. 🎉";
+  if (filter === "completed") return "No completed todos yet.";
+  return "No todos to show.";
+}
