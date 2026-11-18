@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { usePersistedTodos } from "@/hooks/usePersistedTodos";
 import SearchBox from "@/components/SearchBox";
+import BulkActions from "@/components/BulkActions";
 import ProgressSummary from "@/components/ProgressSummary";
 import SortSelect from "@/components/SortSelect";
 import FilterBar from "@/components/FilterBar";
@@ -16,6 +17,7 @@ import {
   filterTodos,
   getStats,
   searchTodos,
+  setAllCompleted,
   sortTodos,
   toggleTodo,
   updateTodoText,
@@ -46,6 +48,10 @@ export default function TodoApp() {
     setTodos((prev) => deleteTodo(prev, id));
   }
 
+  function markAll(completed: boolean) {
+    setTodos((prev) => setAllCompleted(prev, completed));
+  }
+
   function clearDone() {
     setTodos((prev) => clearCompleted(prev));
   }
@@ -64,6 +70,7 @@ export default function TodoApp() {
         <SortSelect value={sort} onChange={setSort} />
       </div>
       <TodoList todos={visible} emptyMessage={emptyMessage(todos.length, filter, query)} onToggle={toggle} onEdit={edit} onDelete={remove} />
+      <BulkActions total={stats.total} completed={stats.completed} onMarkAll={markAll} />
       {doneCount > 0 && (
         <button
           type="button"

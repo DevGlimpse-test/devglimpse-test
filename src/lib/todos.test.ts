@@ -73,3 +73,20 @@ describe("deleteTodo", () => {
     expect(deleteTodo([a, b], "missing")).toEqual([a, b]);
   });
 });
+
+import { setAllCompleted } from "@/lib/todos";
+
+describe("setAllCompleted", () => {
+  it("marks every todo done or not done without mutating", () => {
+    const a = createTodo("a");
+    const b = { ...createTodo("b"), completed: true };
+    const input = [a, b];
+    expect(setAllCompleted(input, true).every((t) => t.completed)).toBe(true);
+    expect(setAllCompleted(input, false).every((t) => !t.completed)).toBe(true);
+    expect(a.completed).toBe(false);
+  });
+  it("keeps untouched todos by reference", () => {
+    const b = { ...createTodo("b"), completed: true };
+    expect(setAllCompleted([b], true)[0]).toBe(b);
+  });
+});

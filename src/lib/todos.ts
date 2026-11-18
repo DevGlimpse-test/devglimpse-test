@@ -121,3 +121,7 @@ export function emptyMessage(total: number, filter: Filter, query: string): stri
   if (filter === "completed") return "No completed todos yet.";
   return "No todos to show.";
 }
+
+export function setAllCompleted(todos: Todo[], completed: boolean): Todo[] {
+  return todos.map((t) => (t.completed === completed ? t : { ...t, completed }));
+}
