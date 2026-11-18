@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { createTodo, getStats } from "@/lib/todos";
 
 describe("getStats", () => {
-  const today = new Date("2026-06-15T12:00:00Z");
+  const today = new Date(2026, 5, 15, 12, 0);
 
   it("handles an empty list", () => {
     expect(getStats([], today)).toEqual({

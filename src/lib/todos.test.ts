@@ -51,7 +51,7 @@ describe("updateTodoText", () => {
 });
 
 describe("isOverdue", () => {
-  const today = new Date("2026-06-15T12:00:00Z");
+  const today = new Date(2026, 5, 15, 12, 0);
   it("is true for a past due date", () => {
     expect(isOverdue(createTodo("a", "low", "2026-06-14"), today)).toBe(true);
   });
