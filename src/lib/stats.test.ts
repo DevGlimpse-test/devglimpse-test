@@ -10,6 +10,7 @@ describe("getStats", () => {
       completed: 0,
       active: 0,
       overdue: 0,
+      dueSoon: 0,
       percentDone: 0,
     });
   });
@@ -26,6 +27,7 @@ describe("getStats", () => {
       completed: 1,
       active: 3,
       overdue: 1,
+      dueSoon: 0,
       percentDone: 25,
     });
   });
