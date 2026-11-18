@@ -1,18 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import { PRIORITIES, type Priority } from "@/lib/todos";
 
 type Props = {
-  onAdd: (text: string) => void;
+  onAdd: (text: string, priority: Priority) => void;
 };
 
 export default function AddTodoForm({ onAdd }: Props) {
   const [text, setText] = useState("");
+  const [priority, setPriority] = useState<Priority>("medium");
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!text.trim()) return;
-    onAdd(text);
+    onAdd(text, priority);
     setText("");
   }
 
@@ -26,6 +28,18 @@ export default function AddTodoForm({ onAdd }: Props) {
         aria-label="New todo"
         className="flex-1 rounded-md border border-gray-300 bg-transparent px-3 py-2 outline-none focus:border-blue-500"
       />
+      <select
+        value={priority}
+        onChange={(e) => setPriority(e.target.value as Priority)}
+        aria-label="Priority"
+        className="rounded-md border border-gray-300 bg-transparent px-2 py-2"
+      >
+        {PRIORITIES.map((p) => (
+          <option key={p} value={p}>
+            {p}
+          </option>
+        ))}
+      </select>
       <button
         type="submit"
         className="rounded-md bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700"
