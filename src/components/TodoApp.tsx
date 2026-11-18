@@ -14,8 +14,8 @@ import {
 export default function TodoApp() {
   const [todos, setTodos] = useState<Todo[]>([]);
 
-  function addTodo(text: string, priority: Priority) {
-    setTodos((prev) => [...prev, createTodo(text, priority)]);
+  function addTodo(text: string, priority: Priority, dueDate: string | null) {
+    setTodos((prev) => [...prev, createTodo(text, priority, dueDate)]);
   }
 
   function toggle(id: string) {

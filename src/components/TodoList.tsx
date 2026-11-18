@@ -1,5 +1,5 @@
 import PriorityBadge from "@/components/PriorityBadge";
-import type { Todo } from "@/lib/todos";
+import { isOverdue, type Todo } from "@/lib/todos";
 
 type Props = {
   todos: Todo[];
@@ -24,6 +24,14 @@ export default function TodoList({ todos, onToggle }: Props) {
           <span className={`flex-1 ${todo.completed ? "line-through opacity-50" : ""}`}>
             {todo.text}
           </span>
+          {todo.dueDate && (
+            <span
+              className={`text-xs ${isOverdue(todo) ? "font-semibold text-red-600" : "opacity-60"}`}
+            >
+              {isOverdue(todo) ? "Overdue · " : "Due "}
+              {todo.dueDate}
+            </span>
+          )}
           <PriorityBadge priority={todo.priority} />
         </li>
       ))}
