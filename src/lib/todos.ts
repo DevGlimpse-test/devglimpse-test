@@ -59,3 +59,7 @@ export function searchTodos(todos: Todo[], query: string): Todo[] {
   if (!q) return todos;
   return todos.filter((t) => t.text.toLowerCase().includes(q));
 }
+
+export function deleteTodo(todos: Todo[], id: string): Todo[] {
+  return todos.filter((t) => t.id !== id);
+}

@@ -63,3 +63,13 @@ describe("isOverdue", () => {
     expect(isOverdue(done, today)).toBe(false);
   });
 });
+
+describe("deleteTodo", () => {
+  it("removes only the target todo", async () => {
+    const { deleteTodo } = await import("@/lib/todos");
+    const a = createTodo("a");
+    const b = createTodo("b");
+    expect(deleteTodo([a, b], a.id)).toEqual([b]);
+    expect(deleteTodo([a, b], "missing")).toEqual([a, b]);
+  });
+});
