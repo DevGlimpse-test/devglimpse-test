@@ -6,9 +6,10 @@ type Props = {
   todos: Todo[];
   onToggle: (id: string) => void;
   onEdit: (id: string, text: string) => void;
+  onDelete: (id: string) => void;
 };
 
-export default function TodoList({ todos, onToggle, onEdit }: Props) {
+export default function TodoList({ todos, onToggle, onEdit, onDelete }: Props) {
   if (todos.length === 0) {
     return <p className="py-6 text-center text-sm opacity-60">No todos yet.</p>;
   }
@@ -37,6 +38,14 @@ export default function TodoList({ todos, onToggle, onEdit }: Props) {
             </span>
           )}
           <PriorityBadge priority={todo.priority} />
+          <button
+            type="button"
+            onClick={() => onDelete(todo.id)}
+            aria-label={`Delete "${todo.text}"`}
+            className="text-gray-400 hover:text-red-600"
+          >
+            ✕
+          </button>
         </li>
       ))}
     </ul>
