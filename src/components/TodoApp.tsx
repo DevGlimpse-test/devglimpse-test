@@ -3,7 +3,7 @@
 import { useState } from "react";
 import AddTodoForm from "@/components/AddTodoForm";
 import TodoList from "@/components/TodoList";
-import { createTodo, type Todo } from "@/lib/todos";
+import { clearCompleted, createTodo, toggleTodo, type Todo } from "@/lib/todos";
 
 export default function TodoApp() {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -12,10 +12,14 @@ export default function TodoApp() {
     setTodos((prev) => [...prev, createTodo(text)]);
   }
 
+  function toggle(id: string) {
+    setTodos((prev) => toggleTodo(prev, id));
+  }
+
   return (
     <div className="mt-8 space-y-4">
       <AddTodoForm onAdd={addTodo} />
-      <TodoList todos={todos} />
+      <TodoList todos={todos} onToggle={toggle} />
     </div>
   );
 }
