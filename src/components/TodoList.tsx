@@ -1,3 +1,4 @@
+import PriorityBadge from "@/components/PriorityBadge";
 import type { Todo } from "@/lib/todos";
 
 type Props = {
@@ -20,9 +21,10 @@ export default function TodoList({ todos, onToggle }: Props) {
             onChange={() => onToggle(todo.id)}
             aria-label={`Mark "${todo.text}" as done`}
           />
-          <span className={todo.completed ? "line-through opacity-50" : ""}>
+          <span className={`flex-1 ${todo.completed ? "line-through opacity-50" : ""}`}>
             {todo.text}
           </span>
+          <PriorityBadge priority={todo.priority} />
         </li>
       ))}
     </ul>
