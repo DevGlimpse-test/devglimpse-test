@@ -4,7 +4,7 @@ export const STORAGE_KEY = "devglimpse-todos";
 
 type StorageLike = Pick<Storage, "getItem" | "setItem">;
 
-function isTodo(value: unknown): value is Todo {
+export function isTodo(value: unknown): value is Todo {
   if (typeof value !== "object" || value === null) return false;
   const v = value as Record<string, unknown>;
   return (
