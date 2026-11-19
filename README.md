@@ -28,3 +28,8 @@ activity for [DevGlimpse](https://devglimpse.com) to measure.
 - `src/hooks` — `usePersistedTodos`
 
 Requires Node 22 (see `.nvmrc`).
+
+## More
+
+- [Contributing](CONTRIBUTING.md)
+- [Architecture](docs/ARCHITECTURE.md)
