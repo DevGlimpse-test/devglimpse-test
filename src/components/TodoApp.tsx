@@ -4,6 +4,7 @@ import { useCallback, useRef, useState } from "react";
 import { useHotkey } from "@/hooks/useHotkey";
 import { usePersistedTodos } from "@/hooks/usePersistedTodos";
 import SearchBox from "@/components/SearchBox";
+import ImportExport from "@/components/ImportExport";
 import BulkActions from "@/components/BulkActions";
 import ProgressSummary from "@/components/ProgressSummary";
 import SortSelect from "@/components/SortSelect";
@@ -11,6 +12,7 @@ import FilterBar from "@/components/FilterBar";
 import AddTodoForm from "@/components/AddTodoForm";
 import TodoList from "@/components/TodoList";
 import { selectVisibleTodos } from "@/lib/select";
+import { mergeTodos } from "@/lib/transfer";
 import {
   clearCompleted,
   createTodo,
@@ -23,6 +25,7 @@ import {
   type Filter,
   type Priority,
   type SortKey,
+  type Todo,
 } from "@/lib/todos";
 
 export default function TodoApp() {
@@ -54,6 +57,10 @@ export default function TodoApp() {
     setTodos((prev) => setAllCompleted(prev, completed));
   }
 
+  function importTodos(imported: Todo[]) {
+    setTodos((prev) => mergeTodos(prev, imported));
+  }
+
   function clearDone() {
     setTodos((prev) => clearCompleted(prev));
   }
@@ -82,6 +89,7 @@ export default function TodoApp() {
           Clear completed ({doneCount})
         </button>
       )}
+      <ImportExport todos={todos} onImport={importTodos} />
     </div>
   );
 }
