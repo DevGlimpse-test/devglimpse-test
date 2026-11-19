@@ -4,6 +4,7 @@ import { useCallback, useRef, useState } from "react";
 import { useHotkey } from "@/hooks/useHotkey";
 import { usePersistedTodos } from "@/hooks/usePersistedTodos";
 import SearchBox from "@/components/SearchBox";
+import ItemsLeft from "@/components/ItemsLeft";
 import ImportExport from "@/components/ImportExport";
 import BulkActions from "@/components/BulkActions";
 import ProgressSummary from "@/components/ProgressSummary";
@@ -79,6 +80,7 @@ export default function TodoApp() {
         <SortSelect value={sort} onChange={setSort} />
       </div>
       <TodoList todos={visible} emptyMessage={emptyMessage(todos.length, filter, query)} onToggle={toggle} onEdit={edit} onDelete={remove} />
+      <ItemsLeft total={stats.total} active={stats.active} />
       <BulkActions total={stats.total} completed={stats.completed} onMarkAll={markAll} />
       {doneCount > 0 && (
         <button
