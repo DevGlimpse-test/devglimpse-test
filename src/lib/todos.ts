@@ -133,3 +133,8 @@ export function emptyMessage(total: number, filter: Filter, query: string): stri
 export function setAllCompleted(todos: Todo[], completed: boolean): Todo[] {
   return todos.map((t) => (t.completed === completed ? t : { ...t, completed }));
 }
+
+export function itemsLeftLabel(active: number): string {
+  if (active === 0) return "All done";
+  return `${active} ${active === 1 ? "item" : "items"} left`;
+}
