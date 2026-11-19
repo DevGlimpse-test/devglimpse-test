@@ -10,16 +10,14 @@ import SortSelect from "@/components/SortSelect";
 import FilterBar from "@/components/FilterBar";
 import AddTodoForm from "@/components/AddTodoForm";
 import TodoList from "@/components/TodoList";
+import { selectVisibleTodos } from "@/lib/select";
 import {
   clearCompleted,
   createTodo,
   deleteTodo,
   emptyMessage,
-  filterTodos,
   getStats,
-  searchTodos,
   setAllCompleted,
-  sortTodos,
   toggleTodo,
   updateTodoText,
   type Filter,
@@ -62,7 +60,7 @@ export default function TodoApp() {
 
   const stats = getStats(todos);
   const doneCount = stats.completed;
-  const visible = sortTodos(searchTodos(filterTodos(todos, filter), query), sort);
+  const visible = selectVisibleTodos(todos, { filter, query, sort });
 
   return (
     <div className="mt-8 space-y-4">
